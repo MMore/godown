@@ -131,7 +131,7 @@ func onTick(c chan FullTime, lang string, female bool) {
 
 var (
 	app      = kingpin.New("godown", "A talking countdown command-line application.")
-	duration = app.Arg("duration", "duration of the countdown (i.e. 1m30s").Required().Duration()
+	duration = app.Arg("duration", "duration of the countdown (i.e. 1m30s)").Required().Duration()
 	female   = app.Flag("female", "male or female voice").Bool()
 	language = app.Flag("lang", "english (en) or german (de) language").Default("en").Enum("en", "de")
 )
