@@ -3,8 +3,9 @@ package main
 import (
 	sf "bitbucket.org/krepa098/gosfml2"
 	"fmt"
+	"os"
 	"time"
-	"flag"
+	"gopkg.in/alecthomas/kingpin.v1"
 )
 
 
@@ -40,8 +41,8 @@ func sayTime(time string, lang string, female bool) {
 
 func separateDuration(duration time.Duration) (int, int, int) {
 	hours := int(duration.Hours())
-	minutes := int(duration.Minutes()) - hours * 60
-	seconds := int(duration.Seconds()) - hours * 60 * 60 - minutes * 60
+	minutes := int(duration.Minutes()) - hours*60
+	seconds := int(duration.Seconds()) - hours*60*60 - minutes*60
 
 	return hours, minutes, seconds
 }
@@ -77,70 +78,73 @@ func tick(c chan FullTime, initialTime FullTime) {
 func onTick(c chan FullTime, lang string, female bool) {
 	for {
 		var counter FullTime = <-c
-		fmt.Println(counter.hours, "h", counter.minutes, "m", counter.seconds, "s")
+		fmt.Printf("%dh %sm %ss\n", counter.hours, counter.minutes, counter.seconds)
 
 		if counter.hours == 0 {
 			if counter.seconds == 0 {
 				// Final
 				if counter.minutes == 0 {
-					fmt.Println("FINISHED!")
+					fmt.Println("FINISHED! Enter any key to exit.")
 					playSound("finale/reminder.wav")
 					break
 				} else if counter.minutes == 5 {
-					sayTime(counter.minutes.String() + "m", lang, female)
+					sayTime(counter.minutes.String()+"m", lang, female)
 				} else if counter.minutes == 3 {
-					sayTime(counter.minutes.String() + "m", lang, female)
+					sayTime(counter.minutes.String()+"m", lang, female)
 				} else if counter.minutes == 2 {
-					sayTime(counter.minutes.String() + "m", lang, female)
+					sayTime(counter.minutes.String()+"m", lang, female)
 				} else if counter.minutes == 1 {
-					sayTime(counter.minutes.String() + "m", lang, female)
+					sayTime(counter.minutes.String()+"m", lang, female)
 				}
 			}
 
 			if counter.minutes == 0 {
 				if counter.seconds == 30 {
-					sayTime(counter.seconds.String() + "s", lang, female)
+					sayTime(counter.seconds.String()+"s", lang, female)
 				} else if counter.seconds == 20 {
-					sayTime(counter.seconds.String() + "s", lang, female)
+					sayTime(counter.seconds.String()+"s", lang, female)
 				} else if counter.seconds == 10 {
-					sayTime(counter.seconds.String() + "s", lang, female)
+					sayTime(counter.seconds.String()+"s", lang, female)
 				} else if counter.seconds == 9 {
-					sayTime(counter.seconds.String() + "s", lang, female)
+					sayTime(counter.seconds.String()+"s", lang, female)
 				} else if counter.seconds == 8 {
-					sayTime(counter.seconds.String() + "s", lang, female)
+					sayTime(counter.seconds.String()+"s", lang, female)
 				} else if counter.seconds == 7 {
-					sayTime(counter.seconds.String() + "s", lang, female)
+					sayTime(counter.seconds.String()+"s", lang, female)
 				} else if counter.seconds == 6 {
-					sayTime(counter.seconds.String() + "s", lang, female)
+					sayTime(counter.seconds.String()+"s", lang, female)
 				} else if counter.seconds == 5 {
-					sayTime(counter.seconds.String() + "s", lang, female)
+					sayTime(counter.seconds.String()+"s", lang, female)
 				} else if counter.seconds == 4 {
-					sayTime(counter.seconds.String() + "s", lang, female)
+					sayTime(counter.seconds.String()+"s", lang, female)
 				} else if counter.seconds == 3 {
-					sayTime(counter.seconds.String() + "s", lang, female)
+					sayTime(counter.seconds.String()+"s", lang, female)
 				} else if counter.seconds == 2 {
-					sayTime(counter.seconds.String() + "s", lang, female)
+					sayTime(counter.seconds.String()+"s", lang, female)
 				} else if counter.seconds == 1 {
-					sayTime(counter.seconds.String() + "s", lang, female)
+					sayTime(counter.seconds.String()+"s", lang, female)
 				}
 			}
 		}
 	}
 }
 
-
+var (
+	app      = kingpin.New("godown", "A talking countdown command-line application.")
+	duration = app.Arg("duration", "duration of the countdown (i.e. 1m30s").Required().Duration()
+	female   = app.Flag("female", "male or female voice").Bool()
+	language = app.Flag("lang", "english (en) or german (de) language").Default("en").Enum("en", "de")
+)
 
 func main() {
-	default_duration, _ := time.ParseDuration("30s")
-	female := flag.Bool("female", true, "male of female voice")
-	language := flag.String("language", "de", "english or german language")
-	duration := flag.Duration("duration", default_duration, "duration of the countdown")
-	flag.Parse()
+	app.Version("1.0.0")
+	kingpin.MustParse(app.Parse(os.Args[1:]))
 
 	h, m, s := separateDuration(*duration)
 	var fulltime FullTime = FullTime{hours: mint(h), minutes: mint(m), seconds: mint(s)}
-	fmt.Println("Starting with", *duration)
-	fmt.Println("Enter a key to exit\n")
+	fmt.Println("Starting talking countdown with", *duration)
+	fmt.Println("Enter any key to abort")
+	fmt.Println()
 
 	var ticker chan FullTime = make(chan FullTime)
 	go tick(ticker, fulltime)
@@ -149,4 +153,3 @@ func main() {
 	var input string
 	fmt.Scanln(&input)
 }
-
