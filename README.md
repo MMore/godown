@@ -18,7 +18,8 @@ Args:
 ### License
 [LICENSE](LICENSE)
 
-## Copyright and License
+## Copyright
 
 Made by Mathias Nestler (c) 2015. Feel free to contribute!
+
 Sounds Copyright Epic games (Unreal Tournament 2004)
