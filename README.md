@@ -8,11 +8,11 @@ Unfortunately this application has dependencies. Currently there is no os indepe
 
 #### Linux
 
-Install [CSFML](http://www.sfml-dev.org/download/csfml/) and [SFML](http://www.sfml-dev.org/download/sfml/2.2/). Then just download the `godown` binary and use it.
+Install [CSFML](http://www.sfml-dev.org/download/csfml/) and [SFML](http://www.sfml-dev.org/download/sfml/2.2/). Then just download the [godown](https://github.com/MMore/godown/releases/download/v1.0.0/godown) binary and use it.
 
 #### Mac OS X
 
-Clone this repository to your machine and execute `make install_deps_osx`. This installs the dependencies for you. Then just just download the `godown` binary and use it.
+Clone this repository to your machine and execute `make install_deps_osx`. This installs the dependencies for you. Then just just download the [godown](https://github.com/MMore/godown/releases/download/v1.0.0/godown) binary and use it.
 
 If you already have a working CSFML and SFML, you can install it from source with `go get github.com/MMore/godown`.
 
