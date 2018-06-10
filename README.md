@@ -4,15 +4,17 @@ A talking countdown written in golang.
 
 ### Installation
 
-Unfortunately this application has dependencies. Currently there is no os independent possiblity to play audio files in golang :(
+Unfortunately this application has dependencies. Currently (2015-04-11) there is no os independent possiblity to play audio files in golang :(
+
+Install [CSFML](http://www.sfml-dev.org/download/csfml/) (tested with `v2.3`).
 
 #### Linux
 
-Install [CSFML](http://www.sfml-dev.org/download/csfml/) and [SFML](http://www.sfml-dev.org/download/sfml/2.2/). Then just download the [godown](https://github.com/MMore/godown/releases/download/v1.0.0/godown) binary and use it.
+Install [SFML](http://www.sfml-dev.org/download/sfml/2.3/). Then just download the [godown](https://github.com/MMore/godown/releases/download/v1.0.1/godown) binary and use it.
 
 #### Mac OS X
 
-Clone this repository to your machine and execute `make install_deps_osx`. This installs the dependencies for you. Then just just download the [godown](https://github.com/MMore/godown/releases/download/v1.0.0/godown) binary and use it.
+Clone this repository to your machine and execute `make install_deps_osx`, which installs the dependencies for you. Then just just download the [godown](https://github.com/MMore/godown/releases/download/v1.0.1/godown) binary and use it.
 
 If you already have a working CSFML and SFML, you can install it from source with `go get github.com/MMore/godown`.
 
@@ -29,6 +31,7 @@ Args:
 ### Tested Environments
 
 * Mac OS X Yosemite and go1.4.1
+* Mac OS X High Sierra and go1.8.1
 
 ### License
 [LICENSE](LICENSE)

@@ -1,13 +1,12 @@
 package main
 
 import (
-	sf "bitbucket.org/krepa098/gosfml2"
 	"fmt"
+	sf "github.com/manyminds/gosfml"
+	"gopkg.in/alecthomas/kingpin.v1"
 	"os"
 	"time"
-	"gopkg.in/alecthomas/kingpin.v1"
 )
-
 
 type mint int
 type FullTime struct {
@@ -137,7 +136,7 @@ var (
 )
 
 func main() {
-	app.Version("1.0.0")
+	app.Version("1.0.1")
 	kingpin.MustParse(app.Parse(os.Args[1:]))
 
 	h, m, s := separateDuration(*duration)
